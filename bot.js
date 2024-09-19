@@ -33,35 +33,7 @@ bot.onText(/\/start/, async msg => {
 	}
 })
 
-bot.onText(/\/feedback/, msg => {
-	const chatId = msg.chat.id
-	bot.sendMessage(chatId, 'Напишите ваше сообщение для обратной связи')
 
-	bot.once('message', async msg => {
-		try {
-			const feedback = await Feedback.create({
-				userId: msg.from.id,
-				message: msg.text,
-			})
-			bot.sendMessage(chatId, 'Заявка получена!')
-			await notifyAdmins(feedback) // Уведомляем админов
-		} catch (err) {
-			console.error('Ошибка при создании обратной связи:', err)
-			bot.sendMessage(chatId, 'Произошла ошибка при отправке обратной связи.')
-		}
-	})
-})
-
-async function notifyAdmins(feedback) {
-	try {
-		const admins = await User.findAll({ where: { role: 1 } })
-		admins.forEach(admin => {
-			bot.sendMessage(admin.id, `Новая заявка: ${feedback.message}`)
-		})
-	} catch (err) {
-		console.error('Ошибка при уведомлении админов:', err)
-	}
-}
 
 bot.onText(/\/tasks/, async msg => {
 	try {

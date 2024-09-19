@@ -15,10 +15,12 @@ CREATE TABLE faqs (
 );
 
 CREATE TABLE feedbacks (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  userId INT NOT NULL,
-  message TEXT NOT NULL,
-  status VARCHAR(255) DEFAULT 'open',
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `userId` INT NOT NULL,
+  `message` TEXT NOT NULL,
+  `status` VARCHAR(255) DEFAULT 'open',
+  file_type VARCHAR(255),
+  file_link TEXT,
   FOREIGN KEY (userId) REFERENCES users(id)
 );
 
