@@ -18,13 +18,13 @@ const handleFeedbackMessage = async (bot, msg) => {
 			fileType = msg.document.mime_type // Тип файла
 		} else if (msg.photo) {
 			fileId = msg.photo[msg.photo.length - 1].file_id
-			fileType = 'image/jpeg' // Тип для фото
+			fileType = 'image/jpeg' // Тип фото
 		} else if (msg.video) {
 			fileId = msg.video.file_id
 			fileType = msg.video.mime_type
 		} else if (msg.voice) {
 			fileId = msg.voice.file_id
-			fileType = 'audio/ogg' // Тип для голосовых сообщений
+			fileType = 'audio/ogg' // Тип голосовых сообщений
 		}
 
 		try {
@@ -40,7 +40,7 @@ const handleFeedbackMessage = async (bot, msg) => {
 	const lastFeedback = await feedbackService.getLastOpenFeedback(userId)
 
 	if (lastFeedback) {
-		// Если есть открытая заявка, прикрепляем к ней новое сообщение или файл с подписью
+		// Если есть открытая заявка, прикрепляем к ней новое сообщение или файл
 		await feedbackService.appendToFeedback(
 			lastFeedback.id,
 			text,
@@ -49,7 +49,7 @@ const handleFeedbackMessage = async (bot, msg) => {
 		)
 		bot.sendMessage(chatId, 'Ваше сообщение прикреплено к текущей заявке')
 	} else {
-		// Создаем новую заявку с текстом сообщения или файлом
+		// Создаем новую заявку
 		await feedbackService.createFeedback(userId, text, fileType, fileLink)
 		bot.sendMessage(
 			chatId,
