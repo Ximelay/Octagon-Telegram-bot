@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 	const Feedback = sequelize.define('Feedback', {
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: false,
 		},
 		message: {
