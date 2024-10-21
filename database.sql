@@ -31,3 +31,5 @@ CREATE TABLE tasks (
   status VARCHAR(255) DEFAULT 'pending',
   FOREIGN KEY (adminId) REFERENCES users(id)
 );
+
+ALTER TABLE Users ADD COLUMN telegramId BIGINT;
